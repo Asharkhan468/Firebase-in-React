@@ -1,57 +1,46 @@
 import React, { useRef } from 'react'
 import { auth } from '../../config/Firebase/config';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-function Register() {
+function Login() {
 
-    const userNameValue = useRef()
-    const emailValue = useRef()
-    const passwordValue = useRef()
+    let navigate = useNavigate();
 
-   const value = (event) => {
+    const emailValue = useRef();
+    const passwordValue = useRef();
 
-    event.preventDefault()
+    const login = (event) => {
 
-    createUserWithEmailAndPassword(auth, emailValue.current.value, passwordValue.current.value)
-  .then((userCredential) => { 
+        event.preventDefault()
+
+signInWithEmailAndPassword(auth, emailValue.current.value, passwordValue.current.value)
+  .then((userCredential) => {
     const user = userCredential.user;
     console.log(user);
+    navigate('')
     
-  })
+  })    
   .catch((error) => {
-    const errorMessage = error.message;
-    console.log(errorMessage);
+    console.log(error);
     
   });
-
-  
-    
+        
 
 
-   }
+
+    }
 
 
   return (
-    <>
-
+   <>
     <div>
-        <h1 className='text-3xl text-center font-bold mt-3'>Register User</h1>
+        <h1 className='text-3xl text-center font-bold mt-3'>Login User</h1>
     </div>
 
 
-<form onSubmit={value} className='w-[80%] sm:w-[30%] md:w-[40%] lg:w-[30%] items-center mt-[10vh] m-0 m-auto'>
-    <label className="input input-bordered flex items-center gap-2 mt-5">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70">
-    <path
-      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-  </svg>
-  <input type="text" className="grow" placeholder="Username" ref={userNameValue} />
-</label>
-
+<form onSubmit={login} className='w-[80%] sm:w-[30%] md:w-[40%] lg:w-[30%] items-center mt-[10vh] m-0 m-auto'>
+    
     <label className="input input-bordered flex items-center gap-2 mt-5">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -79,11 +68,12 @@ function Register() {
   <input type="password" className="grow" placeholder='Password'ref={passwordValue} />
 </label>
 <div className='text-center mt-5'>
-    <button className="btn btn-outline btn-info">REGISTER</button>
+    <button className="btn btn-outline btn-info">LOGIN</button>
 </div>
 </form>
     </>
+   
   )
 }
 
-export default Register
+export default Login
