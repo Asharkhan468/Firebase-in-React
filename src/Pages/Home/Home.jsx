@@ -19,12 +19,17 @@ function Home() {
 console.log("Document written with ID: ", docRef.id);
 setTodo(prevTodo => [...prevTodo , {id:docRef.id , todo:todoVal.current.value}])
 console.log(todo);
-    }
+}
 
-    
-    
-    addData();
+
+
+addData();
+
    }
+
+
+
+   
 
 
    const deleteBtn = async(index) => {
@@ -32,7 +37,7 @@ console.log(todo);
     try {
             await deleteDoc(doc(db, "userTodo", index));
             console.log('Todo deleted with ID: ', index);
-            setTodo(prevTodos => prevTodos.filter(todo => todo.id !== index))
+           setTodo(prevTodos => prevTodos.filter(todo => todo.id !== index))
             
         } catch (error) {
             console.log(error);
@@ -45,10 +50,11 @@ console.log(todo);
    }
 
 
-   const editBtn = async (id)=>{
+   const editBtn = async (id) => {
 
         const updateValue = prompt('Update your Todo');
         if (updateValue === null || updateValue.trim() === '') {
+          alert('Please Enter the updated Value')
             return;
         }
 
@@ -85,17 +91,45 @@ console.log(todo);
     </div>
     </form>
 
+     <h1 className='text-2xl text-center m-[10vh] font-bold'>User Todo</h1>
+
     {todo.length!=0 ? todo.map((item)=>{
       return(
        <>
-       <h1 className='text-2xl text-center m-[10vh] font-bold'>User Todo</h1>
-       <div key={item.id}>
-        <li className='list-none mt-3 flex justify-center gap-5 text-xl'>{item.todo} <button className='btn btn-warning' onClick={() => deleteBtn(item.id)}>delete</button>  <button className='btn btn-warning' onClick={()=> editBtn(item.id)}>edit</button></li>
-       </div>
+       {/* <div key={item.id}>
+        <li className='list-none mt-3 flex justify-center gap-5 text-xl'>{item.todo} <button className='btn btn-warning' onClick={() => deleteBtn(item.id)}>Delete</button>  <button className='btn btn-warning' onClick={()=> editBtn(item.id)}>Edit</button></li>
+       </div> */}
+
+<div className='max-w-md mx-auto p-4'>
+      
+         <ul>
+          <li className="flex justify-between items-center bg-gray-100 p-3 mb-2 rounded-lg shadow-md">
+            <span className="text-gray-800">{item.todo}</span>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => editBtn(item.id)}
+                className="text-blue-500 hover:text-blue-700 transition duration-200"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => deleteBtn(item.id)}
+                className="text-red-500 hover:text-red-700 transition duration-200"
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        
+      </ul>
+
+      </div>
+
+     
        </>
       )
 
-    }): <h1 className='text-center mt-5'>No Todo found...</h1>}
+    }): <h1 className='text-center mt-5 text-lg'>No Todo found...</h1>}
 
  
     

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
 function Navbar() {
   return (
-    <div className="navbar bg-[#15aaea]">
+    <div className="navbar bg-[#15aaea] ">
   <div className="flex-1">
     <a className="btn btn-ghost text-xl">Todo App</a>
   </div>
@@ -19,7 +20,7 @@ function Navbar() {
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE=" />
         </div>
       </div>
       <ul

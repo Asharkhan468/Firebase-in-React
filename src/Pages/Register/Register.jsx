@@ -1,8 +1,11 @@
 import React, { useRef } from 'react'
 import { auth } from '../../config/Firebase/config';
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+
+  const navigate = useNavigate();
 
     const userNameValue = useRef()
     const emailValue = useRef()
@@ -16,11 +19,14 @@ function Register() {
   .then((userCredential) => { 
     const user = userCredential.user;
     console.log(user);
+    alert('You have sucessfully Register')
+    navigate('/login')
     
   })
   .catch((error) => {
     const errorMessage = error.message;
     console.log(errorMessage);
+    alert(errorMessage)
     
   });
 

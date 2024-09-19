@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { auth } from '../../config/Firebase/config';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -18,11 +19,13 @@ signInWithEmailAndPassword(auth, emailValue.current.value, passwordValue.current
   .then((userCredential) => {
     const user = userCredential.user;
     console.log(user);
-    navigate('')
+    alert('Congratulations! You have sucessfully logged In')
+    navigate('/home')
     
   })    
   .catch((error) => {
     console.log(error);
+    alert(error)
     
   });
         
@@ -52,7 +55,7 @@ signInWithEmailAndPassword(auth, emailValue.current.value, passwordValue.current
     <path
       d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
   </svg>
-  <input type="text" className="grow" placeholder="Email" ref={emailValue} />
+  <input type="email" className="grow" placeholder="Email" ref={emailValue} />
 </label>
 <label className="input input-bordered flex items-center gap-2 mt-5">
   <svg
@@ -67,8 +70,12 @@ signInWithEmailAndPassword(auth, emailValue.current.value, passwordValue.current
   </svg>
   <input type="password" className="grow" placeholder='Password'ref={passwordValue} />
 </label>
+
 <div className='text-center mt-5'>
     <button className="btn btn-outline btn-info">LOGIN</button>
+</div>
+<div className='text-center mt-4'>
+  <p className='text-md'>Don't have an account? <span><Link className='font-bold'  to={'/register'}>Register</Link></span></p>
 </div>
 </form>
     </>
